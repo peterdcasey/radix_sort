@@ -1,3 +1,9 @@
+"""
+    Peter Casey
+    Oct 15, 2018
+    Simple Radix10 sort for numbers
+"""
+
 from queue import Queue
 
 def max10(lst):
