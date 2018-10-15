@@ -1,3 +1,7 @@
+"""
+    Basic queue class implemented in a list
+    Insert at position zero, remove from end of list
+"""
 # Completed implementation of a queue ADT
 class Queue:
     def __init__(self):
