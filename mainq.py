@@ -4,59 +4,45 @@
     Simple Radix10 sort for numbers
 """
 
-from queue import Queue
+from random import randint
+from radix10_sort import Radix10_Sort
+from timeit import Timer
 
-def max10(lst):
-    """
-       Find the longest number in the list
-    :param lst:
-    :return: the number of digits of the longest
-    """
-    largest = max(lst)
-    return len(str(abs(largest)))
 
-def make_bins():
-    """
-        Create the 10 Queue bins for the sort
-    :return: list of 10 bins
-    """
-    bins = []
+#nums = [34, 5, 67, 82, 29, 401, 1, 14, 1000, 44, 17, 82]
+#nums = []
 
-    for i in range(10):
-        bins.append(Queue())
+MAX_INTS = 1000000
+MAX = 100
 
-    return bins
-
-def getDigit(x, p):
-    """
-        find the pth digit from the right in number x
-        EX:  getDigit(1234, 2) ==> 3
-    :param x:
-    :param p:
-    :return:
-    """
-    return x // 10**(p) % 10
-
-nums = [34, 5, 67, 82, 29, 401, 1, 14, 1000]
-bins = make_bins()
-
-# loop over the numbers the largest number of places
-for i in range(max10(nums)):
-    # Grab the ith digit from each number put into ith bin
-    for n in nums:
-        bins[getDigit(n, i)].enqueue(n)
-
-    # Clear the list of numbers
+def do_radix():
     nums = []
 
-    # Copy the numbers from the bins, in order, back into the cleared list
-    # Clear each bin after it is emptied
-    for bin in bins:
-        for i in range(bin.size()):
-            nums.append(bin.dequeue())
-        bin.clear()
+    for i in range(MAX_INTS):
+        nums.append(randint(1, MAX))
 
-print(nums)
+    sorter = Radix10_Sort()
+    sorter.sort(nums)
+
+    #print(nums)
+
+
+def do_py_sort():
+    nums = []
+
+    for i in range(MAX_INTS):
+        nums.append(randint(1, MAX))
+
+    nums.sort()
+
+    #print(nums)
+
+t1 = Timer("do_radix()", "from __main__ import do_radix, MAX_INTS, MAX")
+print("radix ",t1.timeit(number=1), "milliseconds")
+
+t2 = Timer("do_py_sort()", "from __main__ import do_py_sort, MAX_INTS, MAX")
+print("py sort ",t2.timeit(number=1), "milliseconds")
+
 
 
 
