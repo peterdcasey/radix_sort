@@ -12,7 +12,7 @@ from timeit import Timer
 #nums = [34, 5, 67, 82, 29, 401, 1, 14, 1000, 44, 17, 82]
 #nums = []
 
-MAX_INTS = 1000000
+MAX_INTS = 100000
 MAX = 100
 
 def do_radix():

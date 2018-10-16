@@ -4,23 +4,22 @@
     Simple Radix10 sort for numbers
 """
 
-from queue2 import Queue
+from queue import Queue
 
 class Radix10_Sort():
 
     def max10(self, lst):
         """
-           Find the longest number in the list
+        Find the longest number in the list
         :param lst:
         :return: the number of digits of the longest
         """
         largest = max(lst)
         return len(str(abs(largest)))
 
-
     def make_bins(self):
         """
-            Create the 10 Queue bins for the sort
+        Create the 10 Queue bins for the sort
         :return: list of 10 bins
         """
         bins = []
@@ -32,13 +31,13 @@ class Radix10_Sort():
 
     def getDigit(self, x, p):
         """
-            find the pth digit from the right in number x
-            EX:  getDigit(1234, 2) ==> 3
+        Find the pth digit from the right in number x
+        EX:  getDigit(1234, 2) ==> 3
         :param x:
         :param p:
         :return:
         """
-        return x // 10**(p) % 10
+        return x // 10**p % 10
 
     def sort(self, nums):
         bins = self.make_bins()
@@ -49,20 +48,19 @@ class Radix10_Sort():
             for n in nums:
                 bins[self.getDigit(n, i)].enqueue(n)
 
-            # Clear the list of numbers
-            #nums = []
-
-            # Copy the numbers from the bins, in order, back into the cleared list
+            # Copy the numbers from the bins, in order, back into the list
             # Clear each bin after it is emptied
             idx = 0
             for bin in bins:
                 for i in range(bin.size()):
-                    #nums.append(bin.dequeue())
                     nums[idx] = bin.dequeue()
                     idx += 1
                 bin.clear()
 
         return nums
 
-
+if __name__ == "__main__":
+    lst = [2,5,4,6,7,8,55,33,22,87,23,454,67,1,234,123,89,754,23,4,678]
+    sorter = Radix10_Sort()
+    print(sorter.sort(lst))
 
